@@ -30,35 +30,23 @@ void print_map(map<T, S>& _m) {
 class Solution {
     public: 
         string removeDuplicates(string s) {
-            bool removed = true;
-            string newS = s;
-
-            while (removed) {
-                removed = false;
-                string g = remDup(newS);
-                if (g != newS) removed = true;
-                newS = g;
-            }
-
-            return newS;
-        }
-
-        string remDup(string s) {
-            string newString;
-            int n = s.size();
             int i = 0;
-            for (; i < n-1; ++i) {
-                if (s[i] != s[i+1]) {
-                    newString += s[i];
-                } else {
-                    ++i;
-                }
-            }
-            // Check if any is remaining
-            if (i < n) newString += s[i];
+            int n = s.size();
 
-            return newString;
+            while (i < n-1) {
+
+                while (s[i] == s[i+1] && i >= 0) {
+
+                    s.replace(i, 2, "");
+                    i = max(i-1, 0);
+                };
+                
+                ++i;
+            };
+
+            return s;
         }
+
 };
 
 int main() {
@@ -68,10 +56,13 @@ int main() {
 
     // Run tests
     Solution solver;
-    string a = "azxxzy";
+    string a = "abbaca";
 
     cout << solver.removeDuplicates(a);
-
+    //a.replace(2, 2, "");
+    //DEBUG(a);
+    //a.replace(1, 2, "");
+    //DEBUG(a);
     
     return 0;
 }
