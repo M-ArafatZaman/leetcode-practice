@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <map>
 
 /**
  * This is a template file for CodeForces competitive programming
@@ -14,27 +15,7 @@ using namespace std;
 
 template <class T> void print_v(vector<T> &v) { cout << "{"; for (auto x : v) cout << x << ","; cout << "\b}" << endl; }
 
-template <typename T>
-T maxVec(vector<T>& nums) {
-    T highest = nums[0];
-
-    for (vector<int>::iterator it = nums.begin()+1; it < nums.end(); ++it) {
-        if (*it > highest) highest = *it;
-    }
-
-    return highest;
-}
-
-template <typename T>
-T minVec(vector<T>& nums) {
-    T lowest = nums[0];
-
-    for (vector<int>::iterator it = nums.begin()+1; it < nums.end(); ++it) {
-        if (*it < lowest) lowest = *it;
-    }
-
-    return lowest;
-}
+template <class T, class S> void print_map(map<T, S>& _m) { cout << "{ "; for (auto & n : _m) { cout << n.first << " = " << n.second << ", "; } cout << "\b }" << endl; }
 
 #define PI = 3.141592653589793
 
