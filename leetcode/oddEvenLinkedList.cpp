@@ -15,14 +15,7 @@ using namespace std;
 
 template <class T> void print_v(vector<T> &v) { cout << "{"; for (auto x : v) cout << x << ","; cout << "\b}" << endl; }
 
-template <class T, class S>
-void print_map(map<T, S>& _m) {
-    cout << "{ ";
-    for (auto & n : _m) {
-        cout << n.first << " = " << n.second << ", ";
-    }
-    cout << "\b }" << endl;
-}
+template <class T, class S> void print_map(map<T, S>& _m) { cout << "{ "; for (auto & n : _m) { cout << n.first << " = " << n.second << ", "; } cout << "\b }" << endl; }
 
 #define PI = 3.141592653589793
 
@@ -69,6 +62,14 @@ public:
     }
 };
 
+// Print linked list
+void printll(ListNode* head) {
+    while (head != nullptr) {
+        cout << head->val << ",";
+        head = head->next;
+    };
+};
+
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
@@ -77,6 +78,18 @@ int main() {
     // Run tests
     Solution solver;
 
+    ListNode* n1 = new ListNode(1);
+    ListNode* n2 = new ListNode(2);
+    ListNode* n3 = new ListNode(3);
+    ListNode* n4 = new ListNode(4);
+    ListNode* n5 = new ListNode(5);
+    n1->next = n2;
+    n2->next = n3;
+    n3->next = n4;
+    n4->next = n5;
+    
+    ListNode* solved = solver.oddEvenList(n1);
+    printll(solved);
 
     
     return 0;
