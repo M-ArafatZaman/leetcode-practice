@@ -15,14 +15,7 @@ using namespace std;
 
 template <class T> void print_v(vector<T> &v) { cout << "{"; for (auto x : v) cout << x << ","; cout << "\b}" << endl; }
 
-template <class T, class S>
-void print_map(map<T, S>& _m) {
-    cout << "{ ";
-    for (auto & n : _m) {
-        cout << n.first << " = " << n.second << ", ";
-    }
-    cout << "\b }" << endl;
-}
+template <class T, class S> void print_map(map<T, S>& _m) { cout << "{ "; for (auto & n : _m) { cout << n.first << " = " << n.second << ", "; } cout << "\b }" << endl; }
 
 #define PI = 3.141592653589793
 
