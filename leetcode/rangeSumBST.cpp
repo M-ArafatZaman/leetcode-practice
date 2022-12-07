@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 
 struct TreeNode {
     int val;
@@ -21,3 +23,28 @@ public:
         return sum;
     }
 };
+
+int main() {
+
+    Solution solver;
+
+    TreeNode* a = new TreeNode(10);
+    TreeNode* al = new TreeNode(5);
+    TreeNode* ar = new TreeNode(15);
+    TreeNode* all = new TreeNode(3);
+    TreeNode* alr = new TreeNode(7);
+    TreeNode* arr = new TreeNode(18);
+
+    a->left = al;
+    a->right = ar;
+
+    al->left = all;
+    al->right = alr;
+
+    ar->right = arr;
+
+    cout << solver.rangeSumBST(a, 7, 15) << endl;
+
+
+    return 0;
+}
