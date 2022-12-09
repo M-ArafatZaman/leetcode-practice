@@ -34,8 +34,9 @@ TreeNode* parseTree(vector<int>& arr) {
             nodes.push(leftChild);
         }
 
+        ++i;
         // Pre parse the next node (the right node)
-        if (i + 1 < arr.size() && arr[i++] != NULL) {
+        if (i < arr.size() && arr[i] != NULL) {
             TreeNode* rightChild = new TreeNode(arr[i]);
             currNode->right = rightChild;
             nodes.push(rightChild);
@@ -46,6 +47,7 @@ TreeNode* parseTree(vector<int>& arr) {
 };
 
 int main() {
+    vector<int> a = {4,2,6,1,3,5,7};
 
     return 0;
 }
