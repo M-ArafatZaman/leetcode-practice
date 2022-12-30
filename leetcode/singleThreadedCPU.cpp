@@ -70,7 +70,7 @@ class Solution {
         priority_queue<vector<int>, vector<vector<int>>, comp_avail_tasks> available_tasks;
         vector<int> orders;
 
-        int time = 0;
+        long long int time = 0;
         int currTaskTime = 0;
         bool doing_task = false;
         pair<int, int> doingCurrTask;
@@ -91,25 +91,33 @@ class Solution {
                 };
             }
 
-            if (doing_task) {
-                currTaskTime++;
-                if (currTaskTime >= doingCurrTask.second) {
-                    currTaskTime = 0;
-                    doing_task = false;
-                    doingCurrTask = {};
-                }
-            }
-            
-            if (!available_tasks.empty() && !doing_task) {
+            if (!available_tasks.empty()) {
                 vector<int> topTask = available_tasks.top();
-                orders.push_back(topTask[2]);
                 available_tasks.pop();
-                doingCurrTask = {topTask[0], topTask[1]};
-                doing_task = true;
+
+                orders.push_back(topTask[2]);
+                time += (long long int)topTask[1]-1;
             }
+
+            // if (doing_task) {
+            //     currTaskTime++;
+            //     if (currTaskTime >= doingCurrTask.second) {
+            //         currTaskTime = 0;
+            //         doing_task = false;
+            //         doingCurrTask = {};
+            //     }
+            // }
+            
+            // if (!available_tasks.empty() && !doing_task) {
+            //     vector<int> topTask = available_tasks.top();
+            //     orders.push_back(topTask[2]);
+            //     available_tasks.pop();
+            //     doingCurrTask = {topTask[0], topTask[1]};
+            //     doing_task = true;
+            // }
             
             time++;
-        }
+        } 
 
         return orders;
     }
@@ -123,10 +131,10 @@ int main() {
     // Run tests
     Solution solver;
 
-    //vector<vector<int>> a = {{1,2},{2,4},{3,2},{4,1}};
-    vector<vector<int>> b = {{7,10},{7,12},{7,5},{7,4},{7,2}};
+    vector<vector<int>> a = {{1,2},{2,4},{3,2},{4,1}};
+    //vector<vector<int>> b = {{7,10},{7,12},{7,5},{7,4},{7,2}};
 
-    vector<int> ans = solver.getOrder(b);
+    vector<int> ans = solver.getOrder(a);
 
     print_v(ans);
 
