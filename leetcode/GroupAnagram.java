@@ -1,11 +1,9 @@
-import java.util.Collections;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Arrays;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> ct = new HashMap<String, List<String>>();
+        Map<String, List<String>> ct = new HashMap<String, List<String>>();
         List<List<String>> result = new ArrayList<List<String>>();
         char[] tmp;
         String key;
@@ -23,6 +21,8 @@ class Solution {
         for (String k : ct.keySet()) {
             result.add(ct.get(k));
         }
+
+        ct = null;
 
         return result;
     }
