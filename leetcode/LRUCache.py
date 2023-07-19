@@ -40,9 +40,10 @@ class LRUCache:
             self.size += 1
         # Add new node
         elif self.size < self.CAP and key not in self.map:
-            self.end.next = Node(key, value)
-            self.end.next.prev = self.end
-            self.end = self.end.next
+            node = Node(key, value)
+            node.prev = self.end
+            self.end.next = node
+            self.end = node
             self.map[key] = self.end
             self.size += 1
         # Key already exists
@@ -53,8 +54,6 @@ class LRUCache:
             self.prioritize(key)    
         # Cache size maxed out (difficult part)
         else:
-            print(key, "needs to be pushed...")
-            print(self.key)
             self.end.next = Node(key, value)
             self.end.next.prev = self.end
             self.end = self.end.next
@@ -62,6 +61,7 @@ class LRUCache:
             key = self.key.key
             del self.map[key]
             self.key = self.key.next
+            self.key.prev = None
 
     def prioritize(self, key: int):
         _node = self.map[key]
@@ -74,10 +74,18 @@ class LRUCache:
         _node.next = _next.next
         _next.prev = _prev
         _next.next = _node
-        # Reorder head
+
+        # Reorder key
         if self.key.prev:
             self.key = self.key.prev
+        if self.end.next:
+            self.end = self.end.next
+        
 
+def printKey(k: Node):
+    while k:
+        print(k)
+        k = k.next
 
 # Your LRUCache object will be instantiated and called as such:
 if __name__ == "__main__":
@@ -86,12 +94,8 @@ if __name__ == "__main__":
     x.put(2,2)
     print(x.get(1))
     x.put(3,3)
-    print(x.map)
     print(x.get(2))
-    print(x.map)
     x.put(4,4)
-    print(x.map)
-    
     print(x.get(1))
     print(x.get(3))
     print(x.get(4))
