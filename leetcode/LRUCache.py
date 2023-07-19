@@ -66,14 +66,20 @@ class LRUCache:
     def prioritize(self, key: int):
         _node = self.map[key]
         if not _node.next: return
-        _next = _node.next
-        _prev = _node.prev
-        if _prev:
-            _prev.next = _next
-        _node.prev = _next
-        _node.next = _next.next
-        _next.prev = _prev
-        _next.next = _node
+        
+        # Pop the item
+        if not _node.prev:
+            self.key = _node.next
+            self.key.prev = None
+        else:
+            _node.prev.next = _node.next
+            _node.next.prev = _node.prev
+        
+        # Attach element to the tail
+        _node.prev = self.end
+        _node.next = None
+        self.end.next = _node
+        self.end = _node
 
         # Reorder key
         if self.key.prev:
