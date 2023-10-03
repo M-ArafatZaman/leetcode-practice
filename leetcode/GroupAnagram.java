@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
