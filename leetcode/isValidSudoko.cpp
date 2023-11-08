@@ -59,13 +59,12 @@ class Solution {
                         cols[i][currNum - '0'] = 1;
                     }
 
+                    if (!isValidMap(grids[currGrid]) || !isValidMap(rows[j]) || !isValidMap(cols[i])) return false;
+
                 }
             }
         }
 
-        for (int k = 0; k < 9; ++k) {
-            if (!isValidMap(grids[k]) || !isValidMap(rows[k]) || !isValidMap(cols[k])) return false;
-        }
 
         return true;
     }
@@ -74,7 +73,7 @@ class Solution {
 int main() {
     Solution sol;
 
-    vector<vector<char>> in1 = {{'8','3','.','.','7','.','.','.','.'},
+    vector<vector<char>> in1 = {{'5','3','.','.','7','.','.','.','.'},
                                 {'6','.','.','1','9','5','.','.','.'},
                                 {'.','9','8','.','.','.','.','6','.'},
                                 {'8','.','.','.','6','.','.','.','3'},
