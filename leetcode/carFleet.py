@@ -13,7 +13,6 @@ class Solution:
             if not last_end_time:
                 last_end_time = (target-curr[0])/curr[1]
 
-
             curr_end = (target-curr[0])/curr[1]
 
             if curr_end > last_end_time:
