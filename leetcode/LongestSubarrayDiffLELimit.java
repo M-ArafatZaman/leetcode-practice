@@ -1,44 +1,47 @@
-import java.util.HashMap;
+import java.util.PriorityQueue;
 
 // https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
 class LongestSubarrayDiffLELimit {
-    public int[] nums;
-    public int limit;
-    public HashMap<String, Integer> cache;
-    
     public static void main(String[] args) {
         LongestSubarrayDiffLELimit obj = new LongestSubarrayDiffLELimit();
         System.out.println(obj.longestSubarray(new int[]{8,2,4,7}, 4));
     }
 
     public int longestSubarray(int[] nums, int limit) {
-        int longest = 0;
-        this.nums = nums;
-        this.limit = limit;
-        cache = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            longest = Math.max(longest, dfs_helper(i, nums[i], nums[i], 1));
-        }
-        return longest;
-    }
-    
-    public int dfs_helper(int i, int min, int max, int len) {
-        // Check cache
-        String key = String.format("%d,%d,%d", i, min, max);
-        if (cache.containsKey(key)) return cache.get(key);
+        int longest = 0, left = 0, right = 0;
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((int a[], int b[]) -> {
+            if (a[0] == b[0]) {
+                return a[1] - b[1];
+            }
+            return a[0] - b[0];
+        });
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>((int a[], int b[]) -> {
+            if (a[0] == b[0]) {
+                return a[1] - b[1];
+            }
+            return b[0] - a[0];
+        });
         
-        if (max - min > limit) {
-            cache.put(key, len-1);
-            return len-1;
+        while (right < nums.length) {
+            minHeap.add(new int[]{nums[right], right});
+            maxHeap.add(new int[]{nums[right], right});
+
+            while (maxHeap.peek()[0] - minHeap.peek()[0] > limit) {
+                left++;
+                // Get rid of min from heap that are not in window
+                while (minHeap.peek()[1] < left) {
+                    minHeap.remove();
+                }
+                
+                // Get rid of max from heap that are not in window
+                while (maxHeap.peek()[1] < left) {
+                    maxHeap.remove();
+                }    
+            } 
+            right++;
+            longest = Math.max(longest, right-left);
         }
-        if (i == nums.length-1) {
-            cache.put(key, len);
-            return len;
-        }
-        int next_min = Math.min(min, nums[i+1]);
-        int next_max = Math.max(max, nums[i+1]);
-        int longest = Math.max(len, dfs_helper(i+1, next_min, next_max, len+1));
-        cache.put(key, longest);
+        
         return longest;
     }
 }
